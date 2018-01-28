@@ -57,16 +57,17 @@ if [ $ans2 == "yes" ]
 then	
 	echo "Start network restart"
 	service network restart
-	if ping -c 1 google.com >> /dev/null 2>&1; then
-		echo "Static ip chnaged"
-	else
-		functionback
 		
-	fi
 else 
 	echo "byes"
  
 fi
+}
+functioncheck(){
+echo "${green}######################################################"
+echo "# You install static IP"
+ping -c 4 8.8.8.8
+echo "######################################################"${reset}
 }
 
 echo ${green}"############################################"
@@ -89,7 +90,8 @@ then
 	then
 		echo ""
 		functionstatic
-		functionrestart		
+		functionrestart
+		functioncheck		
 	fi	
 	if [ $ans1 -eq "2" ]
 	then
@@ -133,5 +135,4 @@ if [ $os -eq "2" ]
 then 
 	echo "Centos 7"
 fi
-
 
