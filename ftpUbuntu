@@ -1,0 +1,64 @@
+#!/bin/bash
+red=`tput setaf 1`
+green=`tput setaf 2`
+reset=`tput sgr0`
+
+
+functionfile(){
+do=$(sudo echo -e "listen=NO\n
+listen_ipv6=YES\n
+anonymous_enable=NO\n
+local_enable=YES\n
+write_enable=YES\n
+connect_from_port_20=YES\n
+user_sub_token=$USER\n
+local_root=/home/$USER/FTP\n
+pasv_min_port=40000\n
+pasv_max_port=50000\n
+userlist_enable=YES\n
+userlist_file=/etc/vsftpd.userlist\n
+userlist_deny=NO\n
+chroot_local_user=YES\n
+secure_chroot_dir=/var/run/vsftpd/empty\n
+pam_service_name=vsftpd\n
+rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem\n
+rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key\n
+ssl_enable=NO\n
+anonymous_enable=NO\n
+local_enable=YES\n
+write_enable=YES\n
+chroot_local_user=YES\n
+user_sub_token=$USER\n
+local_root=/home/$USER/FTP\n
+pasv_min_port=40000\n
+pasv_max_port=50000\n" >> /etc/vsftpd.conf)
+echo $do
+}
+
+echo "${green}###### Welcome to my script ######${reset}
+"
+read -p "Are you sure you want to install? 1. Yes 2.no:" user 
+if [ $user == "1" ]
+then	
+	read -p "Please type users name? :" username
+	if [ -d /home/$username ]; then
+                sudo apt-get install vsftpd -y
+                sudo cp /etc/vsftpd.conf /etc/vsftpd.conf.orig
+                sudo ufw allow 20/tcp
+                sudo ufw allow 21/tcp
+                sudo ufw allow 990/tcp
+                sudo ufw allow 40000:50000/tcp
+                sudo ufw status
+                sudo mkdir /home/$username/FTP
+                sudo chown nobody:nogroup /home/$username/FTP
+		sudo chmod a-w  /home/$username/FTP
+		sudo mkdir /home/$username/FTP/files
+		sudo chown $username:$username /home/$username/FTP/files	
+		sudo echo "vsftpd test file" | sudo tee /home/$username/FTP/files/test.txt
+		functionfile
+		sudo echo "$username" | sudo tee -a /etc/vsftpd.userlist
+		sudo systemctl restart vsftpd
+	else
+		echo "${red}Your username not found /home/!!${reset}"
+	fi
+fi
