@@ -61,4 +61,5 @@ then
 	else
 		echo "${red}Your username not found /home/!!${reset}"
 	fi
+	echo "#{green}Thanks for using my script check my new scripts here github.com/farkhodsadykov ${reset}"
 fi
