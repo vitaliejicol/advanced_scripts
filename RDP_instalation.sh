@@ -9,7 +9,8 @@ name=xrdp
 baseurl=http://li.nux.ro/download/nux/dextop/el7/x86_64/
 enabled=1
 gpgcheck=0" > /etc/yum.repos.d/xrdp.repo
-	rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-1.el7.nux.noarch.rpm >/dev/null
+	dhclient
+	rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-1.el7.nux.noarch.rpm
 	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm >/dev/null
 	yum -y install xrdp tigervnc-server
 	systemctl enable xrdp.service 
