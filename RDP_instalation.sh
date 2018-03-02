@@ -28,7 +28,9 @@ echo "${green}###############################################################${r
 read -p "${green} Do you wanto continue this prosess ${green}yes${reset} or ${red}no${reset}? :" answer
 if [ $answer == "yes" ]
 then
+	yum update -y
 	functiondownload
+	
 	echo "${green} RPD Remote Controle Desktop installed ${reset}"
 else
 	echo "${red} Bye :)) ${reset}"
