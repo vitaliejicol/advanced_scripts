@@ -102,37 +102,9 @@ then
 	then
 		exit 1
 	fi	
-
-
-
-
-
-
 fi
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if [ $os -eq "2" ]
 then 
 	echo "Centos 7"
 fi
-
