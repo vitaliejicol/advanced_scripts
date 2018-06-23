@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# 1 Put this script inside /usr/local/bin
+# 2 Then run command alias ss="pass"
+user=$(echo $1 | awk -F "@" '{print $1}')
+host=$(echo $1 | awk -F "@" '{print $2}')
+#=echo $1 | awk -F "@" '{print $2}'
+
+#read  -p "Please enter user's :" user
+#read -p "Please enter host :" host
+#read -p "Please enter password :" password
+#
+knowhost=$(cat ~/.ssh/known_hosts| grep  -o $host)
+if [[ $knowhost == $host ]]
+then
+	ssh $user@$host
+else
+	cat ~/.ssh/id_rsa.pub | ssh $user@$host 'cat >> ~/.ssh/authorized_keys'
+	ssh $user@$host
+
+fi
