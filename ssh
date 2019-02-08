@@ -10,6 +10,10 @@ host=$(echo $1 | awk -F "@" '{print $2}')
 knowhost=$(cat ~/.ssh/known_hosts| grep  -o $host)
 if [[ $knowhost == $host ]]
 then
+        if [ echo $? >= 1 ]
+	then
+		ssh $user@$host  mkdir /$user.ssh/
+	fi
 	ssh $user@$host
 else
 	read -sp "$user@$host's password:" password
