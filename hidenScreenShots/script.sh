@@ -4,7 +4,7 @@
 ## nohup sh "$PWD"/hidenScreenShots/script.sh &
 
 ## Script will take screenshots and save inside this directory
-SCRIPT_HOME="$HOME/example"
+SCRIPT_HOME="$HOME/result"
 
 ## If you would like to change delay berween screenshots change the value
 TIME_DELAY='15'
